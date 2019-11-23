@@ -58,8 +58,7 @@ class CoverSection extends StatelessWidget {
   }
 
   Widget getContentWidgets() {
-    return Flex(
-      direction: Axis.vertical,
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
