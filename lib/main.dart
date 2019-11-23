@@ -31,14 +31,21 @@ class MyApp extends StatelessWidget {
 
 class CoverSection extends StatelessWidget {
 
-  Widget getGreetingsWidget() {
+  bool isSmallDeviceFn(BuildContext context) {
+    return MediaQuery.of(context).size.width < 600;
+  }
+
+  Widget getGreetingsWidget(bool isSmallDevice) {
+    double containerBottomMargin = isSmallDevice ? 12 : 16;
+    double childWidgetFontSize = isSmallDevice ? 24 : 36;
+
     return Container(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: containerBottomMargin),
       child: Text(
         'I\'m Leo Tiofan Justicia',
         softWrap: true,
         style: TextStyle(
-          fontSize: 36,
+          fontSize: childWidgetFontSize,
           fontWeight: FontWeight.bold,
           color: Colors.white.withOpacity(0.75),
         ),
@@ -46,30 +53,50 @@ class CoverSection extends StatelessWidget {
     );
   }
 
-  Widget getDescriptionWidget() {
+  Widget getDescriptionWidget(bool isSmallDevice) {
+    double sizedBoxWidth = isSmallDevice
+      ? window.physicalSize.width
+      : (window.physicalSize.width / 2) - 64;
+
+    TextStyle textStyle = TextStyle(
+      color: isSmallDevice
+        ? Colors.white.withOpacity(1) 
+        : Colors.white.withOpacity(0.75),
+      fontSize: isSmallDevice ? 14 : 18,
+    );
+
     return SizedBox(
-      width: (window.physicalSize.width / 2) - 64,
-        child: Text(
+      width: sizedBoxWidth,
+      child: Text(
         'I\'m a Tech Engineer (Javascript Specialization). Currently I\'m working as a Front End Engineer for Jenius - BTPN, a bank company located on Greater Jakarta, Indonesia. I have about 3 years experience developing application using HTML, CSS (or SCSS), ReactJS, React Native, Redux and LoopbackJS and other Javascript Technologies.',
         softWrap: true,
-        style: TextStyle(color: Colors.white.withOpacity(0.75), fontSize: 18),
+        style: textStyle,
       ),
     );
   }
 
-  Widget getContentWidgets() {
+  Widget getContentWidgets(bool isSmallDevice) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        getGreetingsWidget(),
-        getDescriptionWidget()
+        getGreetingsWidget(isSmallDevice),
+        getDescriptionWidget(isSmallDevice)
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isSmallDevice = isSmallDeviceFn(context);
+    String containerImageDecorator = isSmallDevice
+      ? 'images/cover-mobile.jpg' 
+      : 'images/cover-desktop.jpg';
+    BoxFit containerImageDecoratorFit = isSmallDevice
+      ? BoxFit.fitHeight
+      : BoxFit.fitWidth;
+    double childContainerMargin = isSmallDevice ? 16 : 64;
+
     return Container(
       constraints: BoxConstraints(
         minWidth: MediaQuery.of(context).size.width,
@@ -77,13 +104,13 @@ class CoverSection extends StatelessWidget {
       ),
       decoration: new BoxDecoration(
         image: DecorationImage(
-          image: ExactAssetImage('images/cover-desktop.jpg'),
-          fit: BoxFit.fitWidth
+          image: ExactAssetImage(containerImageDecorator),
+          fit: containerImageDecoratorFit
         )
       ),
       child: Container(
-        margin: EdgeInsets.all(64),
-        child: getContentWidgets(),
+        margin: EdgeInsets.all(childContainerMargin),
+        child: getContentWidgets(isSmallDevice),
       ),
     );
   }
