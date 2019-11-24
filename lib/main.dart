@@ -110,6 +110,7 @@ class CoverSection extends StatelessWidget {
         )
       ),
       child: Container(
+		transform: Matrix4.translationValues(0.0, -32.0, 0.0),
         margin: EdgeInsets.all(childContainerMargin),
         child: getContentWidgets(isSmallDevice),
       ),
