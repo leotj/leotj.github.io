@@ -54,10 +54,10 @@ class CoverSection extends StatelessWidget {
     );
   }
 
-  Widget getDescriptionWidget(bool isSmallDevice) {
+  Widget getDescriptionWidget(BuildContext context, bool isSmallDevice) {
     double sizedBoxWidth = isSmallDevice
-      ? window.physicalSize.width
-      : (window.physicalSize.width / 2) - 64;
+      ? MediaQuery.of(context).size.width
+      : (MediaQuery.of(context).size.width / 2) - 64;
 
     TextStyle textStyle = TextStyle(
       color: isSmallDevice
@@ -69,20 +69,20 @@ class CoverSection extends StatelessWidget {
     return SizedBox(
       width: sizedBoxWidth,
       child: Text(
-        'I\'m a Tech Engineer (Javascript Specialization). Currently I\'m working as a Front End Engineer for Jenius - BTPN, a bank company located on Greater Jakarta, Indonesia. I have about 3 years experience developing application using HTML, CSS (or SCSS), ReactJS, React Native, Redux and LoopbackJS and other Javascript Technologies.',
+        'I\'m a Tech Enthusiast. Currently I\'m working as a Technical Lead in Jenius - BTPN, a bank company located on Greater Jakarta, Indonesia. I have about 4 years’ experience in using JavaScript Technologies Like React, React Native, Redux and also having fun using technologies from PHP, Dart and Go. In addition, I have 1 years on going experience in leading agile team.',
         softWrap: true,
         style: textStyle,
       ),
     );
   }
 
-  Widget getContentWidgets(bool isSmallDevice) {
+  Widget getContentWidgets(BuildContext context, bool isSmallDevice) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         getGreetingsWidget(isSmallDevice),
-        getDescriptionWidget(isSmallDevice)
+        getDescriptionWidget(context, isSmallDevice)
       ],
     );
   }
@@ -110,9 +110,8 @@ class CoverSection extends StatelessWidget {
         )
       ),
       child: Container(
-		transform: Matrix4.translationValues(0.0, -32.0, 0.0),
         margin: EdgeInsets.all(childContainerMargin),
-        child: getContentWidgets(isSmallDevice),
+        child: getContentWidgets(context, isSmallDevice),
       ),
     );
   }
