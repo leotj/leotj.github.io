@@ -1,1 +1,0 @@
-import{A as t,P as e,_ as o}from"./q-e0f873bf.js";const s=t(e(()=>o(()=>import("./q-a3c02c1f.js"),["build/q-a3c02c1f.js","build/q-e0f873bf.js"]),"s_5i8RPLO2cTE")),_={title:"leotj.com",meta:[{name:"description",content:"leotj.com site description"}]};export{s as default,_ as head};
